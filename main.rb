@@ -1,32 +1,18 @@
-require_relative 'config.rb'
+require_relative 'base.rb'
 
-class Ia
-  attr_reader :client, :input
-
-  TOKEN = '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'
+class Main < Base
+  attr_reader :input
 
   def initialize
-    @client = OpenAI::Client.new(access_token: TOKEN)
     @input = ''
   end
 
   def call
-    header
+    welcome_message
     get_input
-    finish
   end
 
   private
-
-  def header
-    puts '-------------------------------'
-    puts 'Welcome to OpenAI Test console!'
-  end
-
-  def finish
-    puts
-    puts 'bye bye'
-  end
 
   def get_input
     while input
@@ -38,6 +24,8 @@ class Ia
       chat
       puts
     end
+
+    finish_message
   end
 
   def chat
@@ -56,5 +44,5 @@ class Ia
   end
 end
 
-ia = Ia.new
-ia.call
+main = Main.new
+main.call
